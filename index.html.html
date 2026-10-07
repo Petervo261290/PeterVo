@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraCraft Vietnam | Interactive Investor Portal & Pitch Deck</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        brand: { 900: '#030a06', 800: '#081a10', 700: '#0c2e1b', 600: '#134d2c', 500: '#1b6b43', 400: '#278c58', 300: '#42b078' },
+                        bronze: { 600: '#8c6819', 500: '#a67c1e', 400: '#c59b27', 300: '#d4af37', 200: '#e5c563' }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'spin-slow': 'spin 16s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #030a06;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: linear-gradient(135deg, rgba(12, 46, 27, 0.65) 0%, rgba(8, 26, 16, 0.85) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.18);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        }
+        .glass-nav {
+            background: rgba(3, 10, 6, 0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .text-gradient-gold {
+            background: linear-gradient(to right, #e5c563, #c59b27, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .text-gradient-emerald {
+            background: linear-gradient(to right, #42b078, #278c58);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: -1;
+            opacity: 0.35;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #030a06; }
+        ::-webkit-scrollbar-thumb { background: #134d2c; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #278c58; }
+        .slide-transition {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="selection:bg-bronze-400 selection:text-brand-900 relative">
+
+    <div class="bg-glow w-[500px] h-[500px] bg-brand-500 top-[-10%] left-[-10%]"></div>
+    <div class="bg-glow w-[600px] h-[600px] bg-bronze-500/20 bottom-[10%] right-[-10%]"></div>
+    <div class="bg-glow w-[450px] h-[450px] bg-brand-600 top-[40%] left-[25%] opacity-20"></div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 group cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand-600 to-bronze-400 flex items-center justify-center shadow-[0_0_20px_rgba(212,175,55,0.3)] group-hover:scale-105 transition-transform duration-300">
+                    <i class="fa-solid fa-leaf text-white text-xl"></i>
+                </div>
+                <div>
+                    <span class="text-2xl font-black tracking-tight text-white">AuraCraft</span>
+                    <span class="block text-[10px] font-bold text-bronze-400 tracking-widest uppercase">Vietnam • Tỉnh Vị</span>
+                </div>
+            </div>
+            
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-bold tracking-wide">
+                <a href="#hero" class="text-slate-300 hover:text-bronze-300 transition-colors">Overview</a>
+                <a href="#pitch-deck" class="text-slate-300 hover:text-bronze-300 transition-colors">Interactive Deck</a>
+                <a href="#calculator" class="text-slate-300 hover:text-bronze-300 transition-colors">Economics</a>
+                <a href="#products" class="text-slate-300 hover:text-bronze-300 transition-colors">Products & Builder</a>
+                <a href="#market-data" class="text-slate-300 hover:text-bronze-300 transition-colors">Market Data</a>
+            </nav>
+
+            <div class="flex items-center space-x-3">
+                <button onclick="toggleAiChat()" class="glass-card hover:bg-brand-700/60 text-bronze-300 font-bold px-4 py-2.5 rounded-full text-xs flex items-center space-x-2 border border-bronze-400/40 cursor-pointer transition-all">
+                    <i class="fa-solid fa-robot"></i>
+                    <span class="hidden sm:inline">AI Co-Founder</span>
+                </button>
+                <button onclick="openModal()" class="relative overflow-hidden group bg-gradient-to-r from-bronze-400 to-bronze-500 text-brand-900 font-extrabold px-5 py-2.5 rounded-full shadow-[0_0_25px_rgba(212,175,55,0.4)] transition-all transform hover:scale-105 text-xs sm:text-sm cursor-pointer">
+                    <span class="relative z-10"><i class="fa-solid fa-handshake mr-2"></i> Investor Access</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <section id="hero" class="relative min-h-[90vh] flex items-center pt-12 pb-24 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-7 space-y-8 z-10">
+                        <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full glass-card border border-bronze-400/50 text-bronze-300 text-xs font-bold tracking-widest uppercase">
+                            <i class="fa-solid fa-bolt animate-pulse text-bronze-300"></i>
+                            <span>AI-First Functional Beverage Startup • PSO MasterClass Module 3</span>
+                        </div>
+                        
+                        <h1 class="text-5xl sm:text-7xl font-black tracking-tighter leading-[1.08]">
+                            Fueling the <br>
+                            <span class="text-gradient-gold">Future of Work</span><br>
+                            with Tỉnh Vị.
+                        </h1>
+                        
+                        <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-light leading-relaxed border-l-4 border-brand-400 pl-6">
+                            Vietnam's first mass-premium, gut-friendly functional modern coffee. Engineered for urban professionals seeking clean energy and zero afternoon sugar crashes.
+                        </p>
+
+                        <div class="flex flex-col sm:flex-row items-center gap-5 pt-4">
+                            <a href="#pitch-deck" class="w-full sm:w-auto bg-brand-500 hover:bg-brand-400 text-white font-extrabold px-8 py-4 rounded-full shadow-[0_0_30px_rgba(39,140,88,0.5)] transition-all text-center flex items-center justify-center space-x-3 group">
+                                <span>Launch Interactive Deck</span>
+                                <i class="fa-solid fa-arrow-right transform group-hover:translate-x-2 transition-transform"></i>
+                            </a>
+                            <a href="#calculator" class="w-full sm:w-auto glass-card hover:bg-brand-700/50 text-white font-bold px-8 py-4 rounded-full transition-all text-center flex items-center justify-center space-x-2 border border-white/10">
+                                <i class="fa-solid fa-calculator text-bronze-400"></i>
+                                <span>Test Unit Economics</span>
+                            </a>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-white/10 max-w-lg">
+                            <div>
+                                <div class="text-2xl font-black text-gradient-gold">30k VND</div>
+                                <div class="text-xs text-slate-400 font-medium">Target MSRP Sweet Spot</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-black text-gradient-emerald">50%+</div>
+                                <div class="text-xs text-slate-400 font-medium">Gross Retail Margin</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-black text-white">320ml</div>
+                                <div class="text-xs text-slate-400 font-medium">Convenience Can Format</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 flex justify-center relative z-10">
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-30">
+                            <div class="w-[380px] h-[380px] border border-bronze-400/30 rounded-full border-dashed animate-spin-slow"></div>
+                            <div class="absolute w-[280px] h-[280px] border border-brand-400/30 rounded-full animate-spin-slow" style="animation-direction: reverse;"></div>
+                        </div>
+
+                        <div class="relative w-72 sm:w-80 h-[500px] rounded-[2.5rem] p-1 glass-card bg-gradient-to-b from-brand-700/60 to-brand-900/90 animate-float shadow-[0_0_60px_rgba(39,140,88,0.35)]">
+                            <div class="absolute -top-4 -right-4 bg-bronze-400 text-brand-900 text-xs font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg rotate-12">
+                                Flagship SKU
+                            </div>
+                            
+                            <div class="h-full w-full rounded-[2.3rem] border border-white/10 bg-[#050f09] flex flex-col p-8 relative overflow-hidden">
+                                <div class="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-gray-300 via-gray-500 to-[#050f09] opacity-20"></div>
+                                
+                                <div class="flex-grow flex flex-col items-center justify-center text-center z-10">
+                                    <div class="w-20 h-20 rounded-full bg-brand-800 flex items-center justify-center border border-bronze-400/50 mb-6 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                                        <i class="fa-solid fa-mug-hot text-bronze-300 text-3xl"></i>
+                                    </div>
+                                    <h3 class="text-4xl font-black tracking-widest text-white mb-2">TỈNH VỊ</h3>
+                                    <p class="text-xs text-bronze-400 font-bold uppercase tracking-[0.3em] border-b border-white/10 pb-4 mb-4 inline-block">Cà Phê Tiêu Hóa</p>
+                                    
+                                    <div class="space-y-3 w-full text-left mt-2">
+                                        <div class="flex items-center text-sm text-slate-300 font-medium">
+                                            <div class="w-6 h-6 rounded-full bg-brand-600 flex items-center justify-center mr-3 shrink-0"><i class="fa-solid fa-check text-white text-[10px]"></i></div>
+                                            Prebiotic Inulin Fiber
+                                        </div>
+                                        <div class="flex items-center text-sm text-slate-300 font-medium">
+                                            <div class="w-6 h-6 rounded-full bg-brand-600 flex items-center justify-center mr-3 shrink-0"><i class="fa-solid fa-check text-white text-[10px]"></i></div>
+                                            Zero Added Sugar
+                                        </div>
+                                        <div class="flex items-center text-sm text-slate-300 font-medium">
+                                            <div class="w-6 h-6 rounded-full bg-brand-600 flex items-center justify-center mr-3 shrink-0"><i class="fa-solid fa-check text-white text-[10px]"></i></div>
+                                            Sustained Focus
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-gray-500 via-gray-700 to-transparent opacity-20"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pitch-deck" class="py-28 relative border-y border-white/5 bg-brand-900/40 backdrop-blur-md">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                    <span class="text-sm font-black uppercase tracking-widest text-bronze-400">Interactive Presentation</span>
+                    <h2 class="text-4xl sm:text-6xl font-black tracking-tight">Investor Pitch Deck (8 Slides)</h2>
+                    <p class="text-slate-400 text-lg">Use arrow keys (← →) or buttons below to navigate through AuraCraft Vietnam's venture thesis.</p>
+                </div>
+
+                <div class="relative glass-card rounded-[2.2rem] p-1 shadow-2xl border border-bronze-400/25" id="deck-container" ontouchstart="handleTouchStart(event)" ontouchend="handleTouchEnd(event)">
+                    <div class="bg-[#050f09] rounded-[2rem] p-8 sm:p-12 min-h-[500px] flex flex-col relative overflow-hidden">
+                        
+                        <div class="absolute top-0 left-0 w-full h-1.5 bg-white/5">
+                            <div id="deck-progress" class="h-full bg-gradient-to-r from-brand-500 to-bronze-400 transition-all duration-500" style="width: 12.5%;"></div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-8 border-b border-white/10 gap-4">
+                            <div>
+                                <span id="slide-number" class="text-xs font-black uppercase tracking-widest text-bronze-400">Slide 1 of 8</span>
+                                <h3 id="slide-title" class="text-2xl sm:text-3xl font-bold text-white mt-2 slide-transition">Loading...</h3>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button onclick="prevSlide()" class="w-12 h-12 rounded-full glass-card hover:bg-brand-700 flex items-center justify-center text-white transition-all transform hover:-translate-x-1 cursor-pointer">
+                                    <i class="fa-solid fa-arrow-left"></i>
+                                </button>
+                                <button onclick="nextSlide()" class="w-12 h-12 rounded-full bg-bronze-400 hover:bg-bronze-300 flex items-center justify-center text-brand-900 transition-all transform hover:translate-x-1 cursor-pointer shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+                                    <i class="fa-solid fa-arrow-right font-black"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="slide-content" class="flex-grow flex flex-col justify-center py-8 slide-transition opacity-100">
+                            <!-- Injected dynamically -->
+                        </div>
+
+                        <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <div id="slide-dots" class="flex items-center space-x-2.5">
+                                <!-- Dots injected dynamically -->
+                            </div>
+                            <div class="text-xs text-slate-400 font-medium flex items-center space-x-2">
+                                <i class="fa-solid fa-circle-info text-bronze-400"></i>
+                                <span>Tip: Swipe left/right or use keyboard arrow keys</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="calculator" class="py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-sm font-black uppercase tracking-widest text-brand-400">Financial Model</span>
+                <h2 class="text-4xl sm:text-5xl font-black tracking-tight">Interactive Unit Economics Calculator</h2>
+                <p class="text-slate-400 text-lg">Test how scaling production volume transforms unit costs, gross margins, and profitability for Tỉnh Vị.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-6 space-y-8 glass-card p-8 sm:p-10 rounded-[2rem]">
+                    <h3 class="text-2xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-sliders text-bronze-400 mr-3"></i> Production Volume Slider
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-slate-300 font-medium">Batch Scale (Units):</span>
+                            <span id="calc-units-display" class="text-2xl font-black text-gradient-gold">10,000 units</span>
+                        </div>
+                        <input type="range" id="volume-slider" min="1000" max="150000" step="1000" value="10000" 
+                            class="w-full h-3 bg-brand-900 rounded-lg appearance-none cursor-pointer accent-bronze-400"
+                            oninput="updateEconomics(this.value)">
+                        <div class="flex justify-between text-xs text-slate-500 font-bold">
+                            <span>1,000 (Pilot)</span>
+                            <span>50,000</span>
+                            <span>150,000+ (Mass)</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/10">
+                        <button onclick="setVolume(1000)" class="glass-card hover:bg-brand-700/60 py-3 rounded-xl text-sm font-bold text-slate-200 transition-all cursor-pointer">1k Pilot Batch</button>
+                        <button onclick="setVolume(10000)" class="glass-card hover:bg-brand-700/60 py-3 rounded-xl text-sm font-bold text-slate-200 transition-all cursor-pointer">10k Growth Batch</button>
+                        <button onclick="setVolume(50000)" class="glass-card hover:bg-brand-700/60 py-3 rounded-xl text-sm font-bold text-slate-200 transition-all cursor-pointer">50k Scale Batch</button>
+                        <button onclick="setVolume(100000)" class="glass-card hover:bg-brand-700/60 py-3 rounded-xl text-sm font-bold text-slate-200 transition-all cursor-pointer">100k+ Mass Production</button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="glass-card p-6 rounded-2xl flex items-center justify-between border border-white/5">
+                        <div>
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Estimated Unit Cost</div>
+                            <div class="text-sm text-slate-500">Co-packing, ingredients & packaging</div>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-black text-white" id="calc-unit-cost">18,500 VND</div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center justify-between border border-brand-400/40 bg-brand-800/80 shadow-[0_0_30px_rgba(39,140,88,0.2)]">
+                        <div>
+                            <div class="text-xs font-black text-brand-400 uppercase tracking-widest mb-1">Target MSRP Revenue</div>
+                            <div class="text-sm text-slate-300">Based on 30,000 VND retail price</div>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-black text-gradient-emerald" id="calc-margin">38.3% Margin</div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl flex items-center justify-between border border-white/5">
+                        <div>
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Total Batch Revenue Potential</div>
+                            <div class="text-sm text-slate-500">Gross retail value</div>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-black text-gradient-gold" id="calc-total-revenue">300,000,000 VND</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="products" class="py-28 relative border-t border-white/5 bg-brand-900/40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                    <span class="text-sm font-black uppercase tracking-widest text-brand-400">Product Lineup</span>
+                    <h2 class="text-4xl sm:text-5xl font-black tracking-tight">The Tỉnh Vị Collection & Flavor Customizer</h2>
+                    <p class="text-slate-400 text-lg">Explore our five distinct functional variants or test your own custom blend formulation.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <div class="glass-card rounded-[2rem] p-8 group hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+                        <div class="w-16 h-16 rounded-2xl bg-[#0a1f13] flex items-center justify-center mb-8 border border-white/5 group-hover:border-bronze-400/50 transition-colors shadow-lg">
+                            <i class="fa-solid fa-mug-saucer text-2xl text-gradient-gold"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Original Prebiotic Black</h3>
+                        <p class="text-slate-400 leading-relaxed font-light mb-8">Clean, bold Robusta-Arabica blend enhanced with chicory root inulin for gut health and zero added sugar.</p>
+                        <div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest border-t border-white/10 pt-6">
+                            <span class="text-bronze-400">Gut Health Focus</span>
+                            <span class="text-white/30">320ml Can</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-[2rem] p-8 group hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+                        <div class="w-16 h-16 rounded-2xl bg-[#0a1f13] flex items-center justify-center mb-8 border border-white/5 group-hover:border-brand-400/50 transition-colors shadow-lg">
+                            <i class="fa-solid fa-seedling text-2xl text-gradient-emerald"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Coco-Fiber Latte</h3>
+                        <p class="text-slate-400 leading-relaxed font-light mb-8">Light plant-based dairy alternative infused with MCT oil and natural coconut water extract for morning focus.</p>
+                        <div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest border-t border-white/10 pt-6">
+                            <span class="text-brand-400">Energy Boost</span>
+                            <span class="text-white/30">320ml Can</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-[2rem] p-8 group hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+                        <div class="w-16 h-16 rounded-2xl bg-[#0a1f13] flex items-center justify-center mb-8 border border-white/5 group-hover:border-bronze-400/50 transition-colors shadow-lg">
+                            <i class="fa-solid fa-wheat-awn text-2xl text-gradient-gold"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Vanilla Oat Digest</h3>
+                        <p class="text-slate-400 leading-relaxed font-light mb-8">Smooth oat milk base with natural Madagascar vanilla and soluble dietary fiber to support healthy digestion.</p>
+                        <div class="flex items-center justify-between text-xs font-bold uppercase tracking-widest border-t border-white/10 pt-6">
+                            <span class="text-bronze-400">Gentle Digestion</span>
+                            <span class="text-white/30">320ml Can</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 sm:p-12 rounded-[2.5rem] border border-bronze-400/30 max-w-4xl mx-auto">
+                    <div class="text-center mb-8">
+                        <span class="text-xs font-black uppercase tracking-widest text-bronze-400">Interactive Innovation Tool</span>
+                        <h3 class="text-3xl font-bold text-white mt-1">Custom Beverage Formulation Sandbox</h3>
+                        <p class="text-slate-400 text-sm mt-2">Test custom functional blends and calculate predicted market score.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Coffee Base</label>
+                            <select id="custom-base" class="w-full bg-[#030a06] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-bronze-400">
+                                <option value="Robusta-Arabica Blend">Robusta-Arabica Blend</option>
+                                <option value="Pure Vietnamese Robusta">Pure Vietnamese Robusta</option>
+                                <option value="Cold Brew Extract">Cold Brew Extract</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Functional Additive</label>
+                            <select id="custom-additive" class="w-full bg-[#030a06] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-bronze-400">
+                                <option value="Chicory Root Inulin Fiber">Chicory Root Inulin Fiber</option>
+                                <option value="MCT Oil & Coconut Water">MCT Oil & Coconut Water</option>
+                                <option value="Madagascar Vanilla Extract">Madagascar Vanilla Extract</option>
+                                <option value="Ceylon Cinnamon Extract">Ceylon Cinnamon Extract</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Sweetness Profile</label>
+                            <select id="custom-sweet" class="w-full bg-[#030a06] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-bronze-400">
+                                <option value="Zero Added Sugar (Monk Fruit)">Zero Added Sugar (Monk Fruit)</option>
+                                <option value="Light Organic Stevia">Light Organic Stevia</option>
+                                <option value="Unsweetened Clean">Unsweetened Clean</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#030a06] p-6 rounded-2xl border border-white/10">
+                        <div>
+                            <div class="text-xs text-slate-400 uppercase tracking-widest font-bold">Predicted Consumer Appeal Score</div>
+                            <div class="text-2xl font-black text-gradient-gold mt-1" id="custom-score">94.8% / High Market Fit</div>
+                        </div>
+                        <button onclick="simulateCustomBlend()" class="w-full sm:w-auto bg-gradient-to-r from-bronze-400 to-bronze-500 text-brand-900 font-extrabold px-8 py-3.5 rounded-xl shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-transform hover:scale-105 cursor-pointer">
+                            Evaluate Formulation
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="market-data" class="py-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-sm font-black uppercase tracking-widest text-bronze-400">Data Validation</span>
+                <h2 class="text-4xl sm:text-5xl font-black tracking-tight">Market Dataset Insights</h2>
+                <p class="text-slate-400 text-lg">Rigorous data verification from Vietnam's 2021–2025 beverage market data shaping our product decision.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-3xl border border-brand-400/30 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-brand-600 flex items-center justify-center text-white"><i class="fa-solid fa-check text-xl"></i></div>
+                    <h4 class="text-xl font-bold text-white">Digestive Health Priority</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Urban professionals prioritize gut health features 42% higher than standard caffeine boosts when selecting daily functional drinks.</p>
+                    <div class="text-xs font-bold text-brand-400 pt-2 uppercase tracking-widest">Verified via Retail Basket Data</div>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border border-bronze-400/30 space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-bronze-500 flex items-center justify-center text-brand-900"><i class="fa-solid fa-tag text-xl font-black"></i></div>
+                    <h4 class="text-xl font-bold text-white">The 30k VND Sweet Spot</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Volume concentration peaks sharply at 28,000–32,000 VND. Beyond 35,000 VND, purchase frequency drops off due to price fatigue.</p>
+                    <div class="text-xs font-bold text-bronze-400 pt-2 uppercase tracking-widest">Verified via Convenience Velocity</div>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl border border-red-500/30 space-y-4 bg-red-950/20">
+                    <div class="w-12 h-12 rounded-xl bg-red-900/40 flex items-center justify-center text-red-400"><i class="fa-solid fa-xmark text-xl"></i></div>
+                    <h4 class="text-xl font-bold text-white">Rejected Noise</h4>
+                    <p class="text-slate-400 text-sm leading-relaxed">Luxury glass-bottle cold brews at 50,000+ VND. Rejected because repeat purchase rates dropped steeply after 2 weeks, contradicting mass convenience goals.</p>
+                    <div class="text-xs font-bold text-red-400 pt-2 uppercase tracking-widest">Discarded Insight</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#020503] py-14 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-bronze-400 flex items-center justify-center shadow">
+                    <i class="fa-solid fa-leaf text-white"></i>
+                </div>
+                <span class="text-sm font-bold text-white tracking-widest uppercase">AuraCraft Vietnam • Tỉnh Vị</span>
+            </div>
+            <p class="text-xs text-slate-500 font-light text-center md:text-right max-w-md">
+                Generated as part of PSO CEO MasterClass Module 3 Guided Exercise. Fictional Brand & Synthetic Data.
+            </p>
+        </div>
+    </footer>
+
+    <!-- AI Co-Founder Chat Drawer -->
+    <div id="ai-chat-drawer" class="fixed bottom-6 right-6 z-50 w-96 glass-card rounded-[2rem] border border-bronze-400/40 shadow-2xl hidden flex flex-col overflow-hidden max-h-[500px]">
+        <div class="bg-brand-800 p-4 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center text-bronze-300 text-xs">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-white">AuraCraft AI Co-Founder</h4>
+                    <span class="text-[10px] text-brand-400 font-medium">Ready to discuss strategy & financials</span>
+                </div>
+            </div>
+            <button onclick="toggleAiChat()" class="text-slate-400 hover:text-white cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <div id="chat-messages" class="p-4 flex-grow overflow-y-auto space-y-3 text-xs text-slate-300 h-64">
+            <div class="bg-[#030a06] p-3 rounded-xl border border-white/5">
+                Hello! I am your AI co-founder for AuraCraft Vietnam. Ask me anything about our market strategy, unit economics at 10k units, or our convenience store rollout in HCMC!
+            </div>
+        </div>
+
+        <div class="p-3 bg-brand-900 border-t border-white/10 flex items-center space-x-2">
+            <input type="text" id="chat-input" placeholder="Ask about strategy or financials..." class="flex-grow bg-[#030a06] border border-white/10 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-bronze-400" onkeydown="if(event.key==='Enter') sendAiMessage()">
+            <button onclick="sendAiMessage()" class="bg-bronze-400 hover:bg-bronze-300 text-brand-900 font-bold px-4 py-2 rounded-xl text-xs cursor-pointer">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Investor Access Modal -->
+    <div id="investor-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md hidden">
+        <div class="glass-card p-8 sm:p-10 rounded-[2.5rem] max-w-lg w-full mx-4 border border-bronze-400/40 relative shadow-2xl">
+            <button onclick="closeModal()" class="absolute top-6 right-6 w-10 h-10 rounded-full glass-card hover:bg-brand-700 flex items-center justify-center text-white cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            
+            <div class="text-center mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-brand-600 mx-auto flex items-center justify-center mb-4 text-bronze-300 shadow-[0_0_20px_rgba(212,175,55,0.3)]">
+                    <i class="fa-solid fa-handshake text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-black text-white">Request Investor Deck</h3>
+                <p class="text-xs text-slate-400 mt-1">Connect with the AuraCraft Vietnam founders for full financials.</p>
+            </div>
+
+            <form onsubmit="submitForm(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Your Name / Fund</label>
+                    <input type="text" required class="w-full bg-[#030a06] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-bronze-400" placeholder="e.g. John Doe / Mekong Capital">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">Email Address</label>
+                    <input type="email" required class="w-full bg-[#030a06] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-bronze-400" placeholder="john@fund.com">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-bronze-400 to-bronze-500 text-brand-900 font-extrabold py-3.5 rounded-xl shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-transform hover:scale-[1.02] cursor-pointer mt-2">
+                    Submit Access Request
+                </button>
+            </form>
+            <div id="form-success" class="hidden text-center text-brand-400 font-bold text-sm mt-4">
+                <i class="fa-solid fa-circle-check mr-2"></i> Request received! We will email the full pitch deck shortly.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const slides = [
+            {
+                title: "Slide 1: Cover",
+                subtitle: "AuraCraft Vietnam — Tỉnh Vị",
+                content: `
+                    <div class="flex flex-col items-center justify-center h-full text-center space-y-6 py-6">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-brand-600 to-brand-900 flex items-center justify-center border border-bronze-400/30 shadow-[0_0_40px_rgba(212,175,55,0.2)]">
+                             <i class="fa-solid fa-leaf text-3xl text-bronze-300"></i>
+                        </div>
+                        <h4 class="text-4xl sm:text-5xl font-black text-white leading-tight">Fueling the Future of Work</h4>
+                        <p class="text-xl text-gradient-gold font-bold tracking-widest uppercase">TỈNH VỊ</p>
+                        <p class="text-slate-400 font-light max-w-md">Clean Energy. Gut Health. Zero Crash.</p>
+                    </div>
+                `
+            },
+            {
+                title: "Slide 2: The Problem",
+                subtitle: "Afternoon Slump & Sugar Fatigue",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
+                        <div class="space-y-4">
+                            <h4 class="text-2xl sm:text-3xl font-black text-white leading-tight">Traditional Drinks Fail Professionals</h4>
+                            <p class="text-slate-400 leading-relaxed font-light text-sm sm:text-base">Standard milk coffees are packed with refined sugar, causing rapid energy spikes followed by severe afternoon lethargy.</p>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-red-950/20 border border-red-500/20 p-4 rounded-xl flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center shrink-0"><i class="fa-solid fa-arrow-trend-down text-red-400"></i></div>
+                                <span class="text-white text-sm font-medium">Sugar crashes destroy afternoon productivity.</span>
+                            </div>
+                            <div class="bg-red-950/20 border border-red-500/20 p-4 rounded-xl flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center shrink-0"><i class="fa-solid fa-stomach text-red-400"></i></div>
+                                <span class="text-white text-sm font-medium">Heavy caffeine causes digestive discomfort.</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Slide 3: The Solution",
+                subtitle: "Tỉnh Vị Functional Coffee",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
+                        <div class="space-y-4">
+                            <h4 class="text-2xl sm:text-3xl font-black text-white leading-tight">Sustained Focus & Gut Health</h4>
+                            <p class="text-slate-400 leading-relaxed font-light text-sm sm:text-base">We pair clean Robusta-Arabica with chicory root inulin (prebiotic fiber) for smooth alertness without the sugar fatigue.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-brand-400/30 space-y-4">
+                            <div class="flex items-center text-sm text-white font-medium"><div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center mr-3 shrink-0"><i class="fa-solid fa-shield-halved text-brand-400"></i></div> Prebiotic Infused</div>
+                            <div class="flex items-center text-sm text-white font-medium"><div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center mr-3 shrink-0"><i class="fa-solid fa-ban text-brand-400"></i></div> Zero Added Sugar</div>
+                            <div class="flex items-center text-sm text-white font-medium"><div class="w-10 h-10 rounded-full bg-brand-500/20 flex items-center justify-center mr-3 shrink-0"><i class="fa-solid fa-bolt text-brand-400"></i></div> 320ml Grab-and-Go Canned Form</div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Slide 4: Market Opportunity",
+                subtitle: "Data-Backed Demand",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
+                        <div class="space-y-4">
+                            <h4 class="text-2xl sm:text-3xl font-black text-white leading-tight">Modern Trade Expansion</h4>
+                            <p class="text-slate-400 leading-relaxed font-light text-sm sm:text-base">Convenience chains are expanding rapidly. Volume concentration peaks perfectly at the mass-premium sweet spot.</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="glass-card p-6 rounded-2xl border border-white/5 text-center flex flex-col justify-center">
+                                <div class="text-4xl font-black text-gradient-gold mb-1">42%</div>
+                                <div class="text-xs font-medium text-slate-400 uppercase tracking-wide">Higher demand for gut health</div>
+                            </div>
+                            <div class="glass-card p-6 rounded-2xl border border-white/5 text-center flex flex-col justify-center">
+                                <div class="text-4xl font-black text-gradient-emerald mb-1">30k</div>
+                                <div class="text-xs font-medium text-slate-400 uppercase tracking-wide">VND Price Sweet Spot</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Slide 5: Target Customer",
+                subtitle: "The Urban Professional",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
+                        <div class="glass-card p-6 rounded-2xl border border-white/10 text-center relative overflow-hidden">
+                            <div class="w-16 h-16 rounded-full bg-brand-700 mx-auto flex items-center justify-center mb-4 shadow">
+                                <i class="fa-solid fa-briefcase text-brand-300 text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white mb-1">Age 25-35</h4>
+                            <p class="text-bronze-400 font-medium uppercase tracking-widest text-xs mb-3">HCMC Tech & Corporate Hubs</p>
+                            <p class="text-slate-400 text-xs">Income: 15-30M VND / month</p>
+                        </div>
+                        <div class="space-y-4">
+                            <h4 class="text-2xl font-black text-white">Go-To-Market Strategy</h4>
+                            <ul class="space-y-3 text-slate-300 font-light text-sm">
+                                <li><i class="fa-solid fa-check text-brand-400 mr-2"></i> Morning office-hub sampling activations.</li>
+                                <li><i class="fa-solid fa-check text-brand-400 mr-2"></i> Convenience store end-cap displays.</li>
+                                <li><i class="fa-solid fa-check text-brand-400 mr-2"></i> TikTok & productivity KOC reviews.</li>
+                            </ul>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Slide 6: Economics",
+                subtitle: "Margin Strategy",
+                content: `
+                    <div class="flex flex-col h-full justify-center space-y-6 text-center">
+                        <div>
+                            <h4 class="text-2xl sm:text-3xl font-black text-white mb-2">Over 50% Gross Retail Margin</h4>
+                            <p class="text-slate-400 font-light text-sm">Cost optimization through scale while defending the 30k VND price ceiling.</p>
+                        </div>
+                        <div class="flex items-center justify-center space-x-3 sm:space-x-6">
+                            <div class="glass-card p-4 rounded-xl flex-1">
+                                <div class="text-2xl font-black text-white mb-1">35k VND</div>
+                                <div class="text-[10px] text-slate-400 uppercase tracking-widest">Pilot (1k)</div>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-brand-400"></i>
+                            <div class="glass-card p-4 rounded-xl flex-1 border-brand-400/40 bg-brand-800/50">
+                                <div class="text-2xl font-black text-gradient-emerald mb-1">18.5k VND</div>
+                                <div class="text-[10px] text-brand-400 uppercase tracking-widest font-bold">Growth (10k)</div>
+                            </div>
+                            <i class="fa-solid fa-arrow-right text-brand-400"></i>
+                            <div class="glass-card p-4 rounded-xl flex-1">
+                                <div class="text-2xl font-black text-gradient-gold mb-1">11.2k VND</div>
+                                <div class="text-[10px] text-slate-400 uppercase tracking-widest">Mass (100k+)</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Slide 7: Roadmap",
+                subtitle: "3-Phase Growth Plan",
+                content: `
+                     <div class="flex flex-col h-full justify-center space-y-4">
+                        <div class="glass-card p-4 rounded-xl border border-brand-400/40 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-brand-400 uppercase tracking-widest">Phase 1 (Year 1)</span>
+                                <h4 class="font-bold text-white text-base">HCMC Launch & 300 CVS Doors</h4>
+                            </div>
+                            <span class="text-xs font-bold text-slate-400">Active</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-white/5 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Phase 2 (Year 2)</span>
+                                <h4 class="font-bold text-white text-base">National Rollout (Hanoi & Da Nang)</h4>
+                            </div>
+                            <span class="text-xs font-bold text-slate-500">100k+ Scale</span>
+                        </div>
+                        <div class="glass-card p-4 rounded-xl border border-white/5 flex items-center justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Phase 3 (Year 3)</span>
+                                <h4 class="font-bold text-white text-base">Omnichannel & B2B Pantry Subs</h4>
+                            </div>
+                            <span class="text-xs font-bold text-slate-500">Supermarkets</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                title: "Slide 8: The Ask",
+                subtitle: "Capital Requirement",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center h-full">
+                        <div class="space-y-4">
+                            <h4 class="text-3xl font-black text-white leading-tight">Raising Pre-Seed</h4>
+                            <p class="text-slate-300 font-light text-sm sm:text-base">Seeking capital to fund initial production runs and secure Tier-1 convenience store listings.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-bronze-400/30 space-y-3 text-sm">
+                            <div class="flex justify-between text-white pb-2 border-b border-white/10">
+                                <span>Initial Production Run</span>
+                                <span class="font-bold text-bronze-300">45%</span>
+                            </div>
+                            <div class="flex justify-between text-white pb-2 border-b border-white/10">
+                                <span>Retail Listing Fees</span>
+                                <span class="font-bold text-bronze-300">30%</span>
+                            </div>
+                            <div class="flex justify-between text-white pb-2 border-b border-white/10">
+                                <span>Marketing & Sampling</span>
+                                <span class="font-bold text-bronze-300">15%</span>
+                            </div>
+                            <div class="flex justify-between text-white">
+                                <span>Working Capital</span>
+                                <span class="font-bold text-bronze-300">10%</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        let currentSlide = 0;
+        const contentEl = document.getElementById('slide-content');
+        const titleEl = document.getElementById('slide-title');
+        const numberEl = document.getElementById('slide-number');
+        const dotsContainer = document.getElementById('slide-dots');
+        const progressEl = document.getElementById('deck-progress');
+
+        function renderSlide() {
+            contentEl.style.opacity = '0';
+            contentEl.style.transform = 'translateY(10px)';
+            
+            setTimeout(() => {
+                const slide = slides[currentSlide];
+                numberEl.innerText = `Slide ${currentSlide + 1} of ${slides.length}`;
+                titleEl.innerText = `${slide.title} — ${slide.subtitle}`;
+                contentEl.innerHTML = slide.content;
+                
+                progressEl.style.width = `${((currentSlide + 1) / slides.length) * 100}%`;
+
+                dotsContainer.innerHTML = '';
+                slides.forEach((_, idx) => {
+                    const dot = document.createElement('button');
+                    dot.className = `h-2 rounded-full transition-all duration-300 cursor-pointer ${idx === currentSlide ? 'bg-bronze-400 w-8' : 'bg-white/20 w-2 hover:bg-white/50'}`;
+                    dot.onclick = () => { currentSlide = idx; renderSlide(); };
+                    dotsContainer.appendChild(dot);
+                });
+
+                contentEl.style.opacity = '1';
+                contentEl.style.transform = 'translateY(0)';
+            }, 200);
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            renderSlide();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            renderSlide();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        function handleTouchStart(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }
+
+        function handleTouchEnd(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        }
+
+        function updateEconomics(units) {
+            units = parseInt(units);
+            document.getElementById('volume-slider').value = units;
+            document.getElementById('calc-units-display').innerText = units.toLocaleString() + ' units';
+
+            let costPerUnit = 35000;
+            if (units >= 100000) costPerUnit = 11200;
+            else if (units >= 50000) costPerUnit = 14500;
+            else if (units >= 10000) costPerUnit = 18500;
+            else if (units >= 5000) costPerUnit = 24000;
+
+            const msrp = 30000;
+            const margin = ((msrp - costPerUnit) / msrp) * 100;
+            const totalRevenue = units * msrp;
+
+            document.getElementById('calc-unit-cost').innerText = costPerUnit.toLocaleString() + ' VND';
+            document.getElementById('calc-margin').innerText = margin.toFixed(1) + '% Margin';
+            document.getElementById('calc-total-revenue').innerText = totalRevenue.toLocaleString() + ' VND';
+        }
+
+        function setVolume(units) {
+            updateEconomics(units);
+        }
+
+        function simulateCustomBlend() {
+            const scoreEl = document.getElementById('custom-score');
+            scoreEl.innerText = "Analyzing formulation...";
+            setTimeout(() => {
+                scoreEl.innerText = "96.4% / Optimal Market Fit & High Velocity";
+            }, 500);
+        }
+
+        function toggleAiChat() {
+            const drawer = document.getElementById('ai-chat-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function sendAiMessage() {
+            const input = document.getElementById('chat-input');
+            const messages = document.getElementById('chat-messages');
+            const text = input.value.trim();
+            if (!text) return;
+
+            messages.innerHTML += `<div class="bg-brand-700/60 p-3 rounded-xl border border-white/5 text-right font-medium text-white">${text}</div>`;
+            input.value = '';
+            messages.scrollTop = messages.scrollHeight;
+
+            setTimeout(() => {
+                let reply = "That is a great strategic question! For AuraCraft Vietnam, focusing on convenience store velocity in HCMC gives us immediate cash flow validation before scaling nationally.";
+                if (text.toLowerCase().includes('cost') || text.toLowerCase().includes('margin')) {
+                    reply = "At 10,000 units, our unit cost is 18,500 VND. At 100,000+ units, economies of scale drop co-packing and ingredient costs to 11,200 VND, securing over 62% gross margin at 30k MSRP!";
+                } else if (text.toLowerCase().includes('competitor')) {
+                    reply = "Highlands and Nescafé dominate distribution but lack functional wellness and gut health attributes. Phê La is too premium/expensive (45k+) for daily convenience store habits.";
+                }
+                messages.innerHTML += `<div class="bg-[#030a06] p-3 rounded-xl border border-white/5 text-slate-300">${reply}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+            }, 600);
+        }
+
+        function openModal() {
+            document.getElementById('investor-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('investor-modal').classList.add('hidden');
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            document.getElementById('form-success').classList.remove('hidden');
+            setTimeout(() => {
+                closeModal();
+                document.getElementById('form-success').classList.add('hidden');
+            }, 3000);
+        }
+
+        window.onload = () => {
+            renderSlide();
+            updateEconomics(10000);
+        };
+    </script>
+</body>
+</html>
